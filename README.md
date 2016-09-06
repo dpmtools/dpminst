@@ -1,6 +1,7 @@
 # dpminst
 For DPM deployment
 
+### Tools
 Setup DPM servers
 * bin/inst-all
 
