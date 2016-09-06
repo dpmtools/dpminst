@@ -1,10 +1,10 @@
 # dpminst
 For DPM deployment
 
-### Setup DPM servers
+Setup DPM servers
 * bin/inst-all
 
-### Start DPM servers
+Start DPM servers
 * bin/start-all
 
 ### License
