@@ -1,0 +1,11 @@
+HDFS = True
+DEBUG = True
+SHOW_TIME = False
+LOG_DEBUG = True
+LOG_ERROR = True
+
+PKG_MAX = 65536
+
+IFACE = 'lo'
+SCAN_TOOL = 'pyblade'
+INSTALL_TOOL = 'vdtools'

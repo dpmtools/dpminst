@@ -1,0 +1,20 @@
+#!/usr/bin/python
+
+import os
+import sys
+import commands
+
+_name = commands.getoutput('readlink -f %s' % sys.argv[0])
+_path = os.path.dirname(_name)
+_dir = os.path.dirname(_path)
+sys.path.append(_dir)
+
+from roles.distributor import distribute
+from roles.mongo import install_mongo
+from roles.hadoop import install_hadoop
+
+if __name__ == '__main__':    
+    distribute()
+    install_mongo()
+    install_hadoop()
+    
