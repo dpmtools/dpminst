@@ -1,5 +1,5 @@
-PATH_INST = '/home/linaro/test'
-DPM_URL = 'https://github.com/tx626/dpm.git'
+PATH_INST = '~/test'
+DPM_URL = 'https://github.com/dpmtools/dpm.git'
 
 FS_SERVERS = ['SERVER_UPLOADER']
 
@@ -27,6 +27,6 @@ PORT_NAMES = [
               'ALLOCATOR_PORT', 
               'REPOSITORY_PORT']
 
-USERNAME = 'root'
-PASSWORD = 'eco123456.kit'
+USERNAME = 'test'
+PASSWORD = '123456'
 TEMPPATH = '/tmp'

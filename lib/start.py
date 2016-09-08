@@ -25,17 +25,10 @@ ROLES = [
 
 def start_dpm():
     servers = load_conf(DPM_SERVERS)
-    print 4440
-    print servers
     stop_dpm = os.path.join(PATH_INST, 'dpm', 'bin', 'dpm-stop')
     start_dpm = os.path.join(PATH_INST, 'dpm', 'bin', 'dpm-start')
     for role in ROLES:
-        print 4441
-        print role
-        print servers[role]
         for host in servers[role]:
-            print 4442
-            print host
             sshpass(host, stop_dpm)
             sshpass(host, start_dpm, background=True)
     if 'SERVER_ALLOCATOR' not in servers or 'SERVER_INSTALLER' not in servers:
@@ -52,11 +45,8 @@ def start_dpm():
 def _check_hadoop():
     for cluster in HDFS_CLUSTERS:
         namenode = cluster['namenode']
-        print 222
-        print namenode
         for i in range(RETRY + 1):
             output = sshpass_output(namenode, 'jps')
-            print '222-0' + output
             if 'NameNode' in output:
                 break
             if i == RETRY:
@@ -78,11 +68,6 @@ def _start_hadoop():
         start_hdfs = os.path.join('/opt', name, 'sbin', 'start-dfs.sh')
         for cluster in HDFS_CLUSTERS:
             namenode = cluster['namenode']
-            print 1110
-            print stop_hdfs
-            print 1111
-            print start_hdfs
-            print namenode
             sshpass(namenode, stop_hdfs)
             sshpass(namenode, start_hdfs)
 
@@ -92,12 +77,8 @@ def start_hadoop():
     
 def _check_mongo():
     servers = load_conf(DB_SERVERS)
-    print 333
-    print servers
     for role in DB_SERVERS:
-        print role
         for host in servers[role]:
-            print host
             output = sshpass_output(host, 'lsof -i:%d' % MONGO_PORT)
             if str(MONGO_PORT) not in output:
                 raise Exception('%s failed to start Mongo' % host)

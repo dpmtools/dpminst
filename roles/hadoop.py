@@ -26,10 +26,6 @@ def download_hadoop():
     if os.path.exists(HADOOP_TEMP):
         os.makedirs(HADOOP_TEMP, 0o755)
     os.system('wget %s -P %s' % (HADOOP_URL, HADOOP_TEMP))
-#     filename = _get_filename()
-#     path = os.path.join(HADOOP_TEMP, filename)
-#     os.system('tar -xzf %s --directory %s' % (path, HADOOP_TEMP))
-#     os.remove(path)
 
 def _login_ssh(namenode, datanodes):
     if datanodes:
@@ -123,8 +119,6 @@ def _node_name(cluster_name, index):
 def _check_hosts(server, buf):
     path = mktemp()
     scp_from(server, '/etc/hosts', path)
-    print '#########'
-    print buf
     try:
         with open(path) as f:
             lines = f.readlines()
@@ -152,9 +146,6 @@ def _update_hosts(cluster_name, servers):
         f.writelines(buf)
     try:
         for i in range(len(servers)):
-            print 1000
-            print servers[i]
-            print hostname
             _check_hosts(servers[i], buf)
             scp_to(servers[i], path, path)
             sshpass(servers[i], "\'cat %s>>/etc/hosts;rm %s\'" % (path, path))
@@ -215,8 +206,6 @@ def _config_cluster(cluster, cluster_id, hdfsfile):
     else:
         truncate = False
     
-    print '22-0', servers
-    print '22-1', namenode
     _login_ssh(namenode, servers)
     hosts = _update_hosts(cluster_name, servers)
     if truncate:
@@ -253,11 +242,6 @@ def _config_cluster(cluster, cluster_id, hdfsfile):
 def install_hadoop():
     download_hadoop()
     current = {}
-#     name = get_name()
-#     src = os.path.join(HADOOP_TEMP, name)
-#     dir_data = os.path.join(src, 'hdfs', 'data')
-#     dir_name = os.path.join(src, 'hdfs', 'name')
-#     os.system('mkdir -p %s %s' % (dir_data, dir_name))
     
     if HDFS_CLUSTERS:
         for cluster in HDFS_CLUSTERS:
@@ -275,8 +259,6 @@ def install_hadoop():
         filename = _get_filename()
         hdfsfile = os.path.join(HADOOP_TEMP, filename)
         
-#         hdfsfile = mktemp()
-#         os.system('cd %s;tar zcf %s %s' % (HADOOP_TEMP, hdfsfile, name))
         try:
             cluster_id = 0
             threads = []

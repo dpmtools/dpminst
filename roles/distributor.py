@@ -39,7 +39,7 @@ def _gen_servers(dirname, servers):
 
 def _mkdtemp():
     path = tempfile.mkdtemp()
-    os.system('git clone -b upstream %s %s' % (DPM_URL, os.path.join(path, 'dpm')))
+    os.system('git clone -b unstable %s %s' % (DPM_URL, os.path.join(path, 'dpm')))
     return path
 
 def _compress(dirname):
