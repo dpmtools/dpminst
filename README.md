@@ -2,13 +2,12 @@
 For DPM deployment
 
 ### Tools
-Setup DPM servers:
-
+####1. Setup DPM servers:
 * bin/inst-all
 
-Start DPM servers:
-
+####2. Start DPM servers:
 * bin/start-all
 
 ### License
 DPMInst is distributed under the terms of the MIT license.
+
