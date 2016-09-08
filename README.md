@@ -2,11 +2,11 @@
 For DPM deployment
 
 ### Tools
-1. Setup DPM servers:
+Setup DPM servers:
 
 * bin/inst-all
 
-2. Start DPM servers:
+Start DPM servers:
 
 * bin/start-all
 
