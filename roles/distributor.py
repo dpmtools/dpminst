@@ -55,7 +55,8 @@ def _distribute(dpmfile, host, role):
     test_dep = os.path.join(PATH_INST, 'dpm', 'tests', 'test-dep')
     
     scp_to(host, dpmfile, dpmfile)
-    sshpass(host, 'mkdir -p %s;rm -rf %s*' % (PATH_INST, os.path.join(PATH_INST, 'dpm')))
+    sshpass(host, 'rm -rf %s 2>/dev/null' % os.path.join(PATH_INST, 'dpm'))
+    sshpass(host, 'mkdir -p %s' % PATH_INST)
     sshpass(host, 'tar zxf %s --directory %s 2>/dev/null' % (dpmfile, PATH_INST))
     sshpass(host, 'rm %s' % dpmfile)
     
@@ -75,7 +76,7 @@ def _distribute(dpmfile, host, role):
     else:
         sshpass(host, target) 
     if output:
-        if not output.startswith('bash: warning:'):
+        if not output.startswith('bash: warning:') and not output.startswith('Warning:'):
             raise Exception('%s, failed to perform test' % host)
 
 def distribute():
