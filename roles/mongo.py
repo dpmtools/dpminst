@@ -44,6 +44,7 @@ def install_mongo():
         for role in DB_SERVERS:
             for host in servers[role]:
                 if host not in current:
+                    sshpass(host, 'apt-get install -y mongodb')
                     scp_to(host, path, '/etc/mongodb.conf')
                     sshpass(host, 'service mongodb restart')
                     current.append(host)

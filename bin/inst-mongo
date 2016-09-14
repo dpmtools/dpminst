@@ -9,9 +9,8 @@ _path = os.path.dirname(_name)
 _dir = os.path.dirname(_path)
 sys.path.append(_dir)
 
-from roles.hadoop import install_hadoop
+from roles.mongo import install_mongo
 
 if __name__ == '__main__':
-    os.system('apt-get install -y sshpass')  
-    install_hadoop()
-    
+    os.system('apt-get install -y sshpass')
+    install_mongo()
