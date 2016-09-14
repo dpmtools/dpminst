@@ -79,7 +79,7 @@ def _distribute(dpmfile, host, role):
         if not output.startswith('bash: warning:') and not output.startswith('Warning:'):
             raise Exception('%s, failed to perform test' % host)
 
-def distribute():
+def install_dpm():
     path = None
     dpmfile = None
     try:

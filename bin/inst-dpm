@@ -9,11 +9,8 @@ _path = os.path.dirname(_name)
 _dir = os.path.dirname(_path)
 sys.path.append(_dir)
 
-from roles.hadoop import install_hadoop
-from conf.hadoop.config import HADOOP_TEMP
+from roles.dpm import install_dpm
 
 if __name__ == '__main__':
-    os.system('rm -rf %s' % HADOOP_TEMP)
-    os.system('apt-get install -y sshpass')  
-    install_hadoop()
-    
+    os.system('apt-get install -y sshpass')
+    install_dpm()

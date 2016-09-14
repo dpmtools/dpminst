@@ -8,6 +8,7 @@ import os
 import sys
 import tempfile
 import commands
+from threading import Thread
 from lib.loadconf import load_conf
 from lib.util import sshpass, scp_to
 from conf.dpminst import DB_SERVERS
@@ -16,6 +17,11 @@ from conf.dpm.mongodb import MONGO_PORT
 _name = commands.getoutput('readlink -f %s' % sys.argv[0])
 _path = os.path.dirname(_name)
 
+def _install_mongo(host, path):
+    sshpass(host, 'apt-get install -y mongodb')
+    scp_to(host, path, '/etc/mongodb.conf')
+    sshpass(host, 'service mongodb restart')
+                
 def install_mongo():
     buf = []
     addr = '0.0.0.0'
@@ -40,14 +46,17 @@ def install_mongo():
         with open(path, 'w') as f:
             f.writelines(buf)
         current = []
+        threads = []
         servers =  load_conf(DB_SERVERS)
         for role in DB_SERVERS:
             for host in servers[role]:
                 if host not in current:
-                    sshpass(host, 'apt-get install -y mongodb')
-                    scp_to(host, path, '/etc/mongodb.conf')
-                    sshpass(host, 'service mongodb restart')
+                    th = Thread(target=_install_mongo, args=(host, path))
                     current.append(host)
+                    threads.append(th)
+                    th.start()
+        for th in threads:
+            th.join()
     finally:
         if os.path.exists(path):
             os.remove(path)
