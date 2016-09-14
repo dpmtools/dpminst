@@ -12,10 +12,11 @@ sys.path.append(_dir)
 from roles.distributor import distribute
 from roles.mongo import install_mongo
 from roles.hadoop import install_hadoop
+from conf.hadoop.config import HADOOP_TEMP
 
 if __name__ == '__main__':
+    os.system('rm -rf %s' % HADOOP_TEMP)
     os.system('apt-get install -y sshpass')
     distribute()
     install_mongo()
     install_hadoop()
-    
