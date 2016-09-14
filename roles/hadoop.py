@@ -130,7 +130,8 @@ def _check_hosts(server, buf):
                     if name in lines[j]:
                         raise Exception('%s have a invalid name %s, it has been named' % (host, name))
     finally:
-        os.remove(path)
+        if os.path.exists(path):
+            os.remove(path)
 
 def _update_hosts(cluster_name, servers):
     buf = []
@@ -179,7 +180,8 @@ def _config_server(server, hdfsfile, path_slaves, path_core, path_hdfs):
         dst = os.path.join('/opt', name, 'etc', 'hadoop', 'hadoop-env.sh')
         scp_to(server, path_env, dst)
     finally:
-        os.remove(path_env)
+        if os.path.exists(path_env):
+            os.remove(path_env)
     
     dst = os.path.join('/opt', name, 'etc', 'hadoop', 'slaves')
     scp_to(server, path_slaves, dst)
